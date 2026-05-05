@@ -6,12 +6,13 @@ class Processos:
         self.pids_liberados = list(pids_liberados)
 
 class Requisicao:
-    def __init__(self, tipo, pid, valor=None):
+    def __init__(self, tipo, pid, ua=None, end_log=None):
         self.tipo = tipo
         self.pid = pid
-        self.valor = valor
+        self.ua = ua
+        self.end_log = end_log
 
-def ler_arquivo(caminho_entrada):                   #recebe o caminho do arquivo de entrada
+def ler_arquivo(caminho_entrada):         
     
     arquivo = open(caminho_entrada, "r")            
     
@@ -25,9 +26,9 @@ def ler_arquivo(caminho_entrada):                   #recebe o caminho do arquivo
         requisicao = Requisicao(parte[0], parte[1]) 
 
         if requisicao.tipo == "aloca":
-            requisicao.valor = parte[2]
-        elif parte[0] == "acessa":
-            requisicao.valor = parte[2]
+            requisicao.ua = parte[2]
+        elif requisicao.tipo == "acessa":
+            requisicao.end_log = parte[2]
 
         requisicoes.append(requisicao)
 
@@ -49,10 +50,10 @@ if __name__ == "__main__":
     processos, requisicoes = ler_arquivo(caminho_entrada)
 
     for i in processos:
-        print(f"{i.numero_processos} {i.pids_liberados}")
+        print(f"Numero de processos: {i.numero_processos}\nPIDs liberados: {i.pids_liberados}")
     
     for i in requisicoes:
-        print(f"{i.tipo} {i.pid} {i.valor}")
+        print(f"Requisições: {i.tipo} {i.pid} {i.ua} {i.end_log}")
     
     #linha, tarefas = simular(tarefas, algoritmo)
 
