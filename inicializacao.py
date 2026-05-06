@@ -5,12 +5,31 @@ class Processos:
         self.numero_processos = int(numero_processos)
         self.pids_liberados = list(pids_liberados)
 
-class Requisicao:
+class Lista_Processos:
     def __init__(self, tipo, pid, ua=None, end_log=None):
         self.tipo = tipo
         self.pid = pid
         self.ua = ua
         self.end_log = end_log
+
+class Bloco_RAM:
+    def _initi_(self):
+        self.alocado = False
+        
+    def alocar(self):
+        self.alocado = True
+
+    def desalocar(self):
+        self.alocado = False
+
+    def __repr__(self):
+        return "Alocado" if self.alocado else "Desalocado"
+    
+class Simulador:
+    def _init_(self):
+        self.RAM = []
+        for _ in range(4096):
+            self.RAM.append(Bloco_RAM())
 
 def ler_arquivo(caminho_entrada):         
     
