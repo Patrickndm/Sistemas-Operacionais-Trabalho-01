@@ -1,6 +1,6 @@
 import sys
 
-class Processos:
+class Informacoes_Arquivo_Entrada:
     def __init__(self, numero_processos, pids_liberados):
         self.numero_processos = int(numero_processos)
         self.pids_liberados = list(pids_liberados)
@@ -25,11 +25,30 @@ class Bloco_RAM:
     def __repr__(self):
         return "Alocado" if self.alocado else "Desalocado"
     
+class Bloco_Tabela:
+    def _init(self):
+        self.pid = self.pid
+        self.end_log = self.end_log
+        self.limite = self.limite
+
+    def informar_pid(self, pid):
+        self.pid = pid
+    
+    def informar_end_log(self, end_log):
+        self.pid = end_log
+    
+    def informar_limite(self, limite):
+        self.limite = limite
+    
 class Simulador:
-    def _init_(self):
+    def _init_(self, numero_processos):
         self.RAM = []
         for _ in range(4096):
             self.RAM.append(Bloco_RAM())
+
+        self.Tabela = []
+        for _ in range(numero_processos):
+            self.RAM.append(Bloco_Tabela())
 
 def ler_arquivo(caminho_entrada):         
     
@@ -37,19 +56,19 @@ def ler_arquivo(caminho_entrada):
     
     numero_processos = int(arquivo.readline().strip())
     pids = arquivo.readline().strip().split(";")
-    processos = [Processos(numero_processos, pids)]
+    informacoes_arquivo_entrada = [Informacoes_Arquivo_Entrada(numero_processos, pids)]
     
-    requisicoes = []
+    lista_de_processos = []
     for linha in arquivo:
         parte = linha.strip().split(" ")
-        requisicao = Requisicao(parte[0], parte[1]) 
+        processo = Lista_Processos(parte[0], parte[1]) 
 
-        if requisicao.tipo == "aloca":
-            requisicao.ua = parte[2]
-        elif requisicao.tipo == "acessa":
-            requisicao.end_log = parte[2]
+        if processo.tipo == "aloca":
+            processo.ua = parte[2]
+        elif processo.tipo == "acessa":
+            processo.end_log = parte[2]
 
-        requisicoes.append(requisicao)
+        lista_de_processos.append(processo)
 
     arquivo.close()
     return processos, requisicoes
