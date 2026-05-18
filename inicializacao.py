@@ -71,7 +71,7 @@ def ler_arquivo(caminho_entrada):
         lista_de_processos.append(processo)
 
     arquivo.close()
-    return processos, requisicoes
+    return processos, lista_de_processos, informacoes_arquivo_entrada
 
 
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     caminho_entrada_refinado = caminho_entrada.replace("./exemplos_entrada/", "").replace(".txt", "")
     caminho_saida = f"log_{caminho_entrada_refinado}_{algoritmo}.txt"
     
-    processos, requisicoes = ler_arquivo(caminho_entrada)
+    processos, lista_de_processos, Informacoes_Arquivo_Entrada = ler_arquivo(caminho_entrada)
     
     #linha, tarefas = simular(tarefas, algoritmo)
 
